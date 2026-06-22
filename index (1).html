@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Untuk Kamu 🌿</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F4F7F0;
+    --card: #FFFFFF;
+    --card-soft: #E9F1E2;
+    --leaf: #7FA66B;
+    --leaf-deep: #4D6B43;
+    --leaf-pale: #C9DDBC;
+    --honey: #F0B94D;
+    --honey-soft: #FBE3AE;
+    --ink: #3C4A35;
+    --ink-soft: #6E7E64;
+    --line: #DCE7D3;
+    --shadow: 0 12px 30px -12px rgba(77,107,67,0.25);
+    --radius: 22px;
+  }
+
+  *{ box-sizing: border-box; }
+  html, body{
+    margin:0; padding:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Quicksand', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body{
+    min-height: 100vh;
+    background-image:
+      radial-gradient(circle at 8% 12%, rgba(127,166,107,0.10) 0%, transparent 45%),
+      radial-gradient(circle at 92% 85%, rgba(240,185,77,0.10) 0%, transparent 40%);
+  }
+  h1,h2,h3{
+    font-family: 'Fraunces', serif;
+    color: var(--leaf-deep);
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  button{ font-family: inherit; }
+  a{ color: inherit; }
+
+  .app{
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100vh;
+    position: relative;
+    padding: 0 0 48px;
+  }
+
+  /* ---------- Top progress: rangkaian bunga mekar ---------- */
+  .progress-wrap{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap: 14px;
+    padding: 22px 20px 6px;
+  }
+  .progress-stem{
+    flex:1;
+    height: 2px;
+    background: var(--line);
+    border-radius: 2px;
+    position: relative;
+    max-width: 46px;
+  }
+  .progress-stem.filled{ background: var(--leaf-pale); }
+  .flower{
+    width: 30px; height: 30px;
+    flex-shrink:0;
+    transition: transform .5s cubic-bezier(.34,1.56,.64,1);
+  }
+  .flower.bloom{ animation: bloomPop .55s cubic-bezier(.34,1.56,.64,1); }
+  @keyframes bloomPop{
+    0%{ transform: scale(0.4) rotate(-15deg); }
+    60%{ transform: scale(1.18) rotate(4deg); }
+    100%{ transform: scale(1) rotate(0); }
+  }
+
+  /* ---------- Sections / Steps ---------- */
+  .step{
+    display:none;
+    padding: 18px 24px 10px;
+    animation: fadeUp .55s ease both;
+  }
+  .step.active{ display:block; }
+  @keyframes fadeUp{
+    from{ opacity:0; transform: translateY(14px); }
+    to{ opacity:1; transform: translateY(0); }
+  }
+
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--leaf);
+    background: var(--card-soft);
+    padding: 6px 12px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+
+  .headline{
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1.18;
+    margin-bottom: 8px;
+  }
+  .headline em{
+    font-style: italic;
+    font-weight: 500;
+    color: var(--leaf);
+  }
+  .sub{
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    line-height: 1.5;
+    margin-bottom: 26px;
+  }
+
+  /* ---------- Card / form elements ---------- */
+  .card{
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 24px 22px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--line);
+  }
+
+  label{
+    display:block;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--leaf-deep);
+    margin-bottom: 8px;
+  }
+  input[type="text"], input[type="date"], textarea{
+    width:100%;
+    border: 1.5px solid var(--line);
+    background: #FBFDFA;
+    border-radius: 14px;
+    padding: 14px 16px;
+    font-size: 16px;
+    font-family: 'Quicksand', sans-serif;
+    color: var(--ink);
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  input[type="text"]:focus, input[type="date"]:focus, textarea:focus{
+    border-color: var(--leaf);
+    box-shadow: 0 0 0 4px rgba(127,166,107,0.15);
+  }
+  textarea{ resize: vertical; min-height: 80px; font-weight: 500; }
+
+  .field{ margin-bottom: 20px; }
+  .hint{ font-size: 12.5px; color: var(--ink-soft); margin-top: 6px; }
+
+  .btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap: 8px;
+    width:100%;
+    border:none;
+    border-radius: 16px;
+    padding: 16px 20px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor:pointer;
+    transition: transform .15s, box-shadow .15s, opacity .15s;
+    font-family: 'Quicksand', sans-serif;
+  }
+  .btn:active{ transform: scale(0.97); }
+  .btn-primary{
+    background: var(--leaf);
+    color: white;
+    box-shadow: 0 10px 22px -8px rgba(127,166,107,0.55);
+  }
+  .btn-primary:disabled{ opacity:.5; cursor:not-allowed; box-shadow:none; }
+  .btn-ghost{
+    background: var(--card-soft);
+    color: var(--leaf-deep);
+  }
+  .btn-honey{
+    background: var(--honey);
+    color: #5A3E0E;
+    box-shadow: 0 10px 22px -8px rgba(240,185,77,0.6);
+  }
+
+  /* ---------- Step 1: Pendaftaran ---------- */
+  .seed-icon{
+    width: 56px; height:56px;
+    margin-bottom: 16px;
+  }
+
+  /* ---------- Step 2: Sapaan + tanggal ---------- */
+  .greet-name{
+    color: var(--honey);
+    font-weight: 700;
+    font-style: italic;
+    font-family: 'Fraunces', serif;
+  }
+  .date-chip-row{
+    display:flex; flex-wrap:wrap; gap:10px; margin-bottom: 8px;
+  }
+  .date-chip{
+    flex: 1 1 auto;
+    min-width: 92px;
+    text-align:center;
+    border: 1.5px solid var(--line);
+    background: #FBFDFA;
+    border-radius: 14px;
+    padding: 12px 10px;
+    cursor:pointer;
+    transition: all .18s;
+    font-weight: 600;
+    font-size: 13.5px;
+    color: var(--ink-soft);
+  }
+  .date-chip .d-num{
+    font-family:'Fraunces', serif;
+    font-size: 20px;
+    color: var(--leaf-deep);
+    display:block;
+    margin-bottom: 2px;
+  }
+  .date-chip.selected{
+    border-color: var(--leaf);
+    background: var(--card-soft);
+    color: var(--leaf-deep);
+    box-shadow: 0 6px 14px -6px rgba(127,166,107,0.4);
+  }
+  .or-divider{
+    display:flex; align-items:center; gap:10px;
+    color: var(--ink-soft); font-size: 12.5px; font-weight: 700;
+    margin: 18px 0 14px;
+  }
+  .or-divider::before, .or-divider::after{
+    content:""; flex:1; height:1px; background: var(--line);
+  }
+
+  /* ---------- Step 3: Destinasi ---------- */
+  .saran-zone{
+    text-align:center;
+    padding: 30px 10px 6px;
+  }
+  .saran-zone .q-icon{ width:64px; height:64px; margin-bottom: 14px; }
+
+  .place-list{
+    display:flex;
+    flex-direction:column;
+    gap: 16px;
+    margin-top: 18px;
+  }
+  .place-card{
+    background: var(--card);
+    border-radius: var(--radius);
+    overflow:hidden;
+    border: 1.5px solid var(--line);
+    box-shadow: var(--shadow);
+    cursor:pointer;
+    transition: transform .18s, border-color .18s;
+    opacity:0;
+    animation: cardIn .5s ease forwards;
+  }
+  .place-card:active{ transform: scale(0.985); }
+  .place-card.picked{
+    border-color: var(--leaf);
+    box-shadow: 0 0 0 3px rgba(127,166,107,0.25), var(--shadow);
+  }
+  @keyframes cardIn{
+    from{ opacity:0; transform: translateY(10px); }
+    to{ opacity:1; transform: translateY(0); }
+  }
+  .place-photo{
+    width:100%; height: 150px;
+    object-fit: cover;
+    display:block;
+    background: var(--card-soft);
+  }
+  .place-body{ padding: 14px 16px 16px; }
+  .place-name{
+    font-family:'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--leaf-deep);
+    margin-bottom: 4px;
+  }
+  .place-desc{
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    line-height:1.45;
+    margin-bottom: 10px;
+  }
+  .place-foot{
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    gap: 10px;
+  }
+  .maps-link{
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--leaf);
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+  }
+  .pick-badge{
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: var(--card-soft);
+    color: var(--leaf-deep);
+    transition: all .15s;
+  }
+  .place-card.picked .pick-badge{
+    background: var(--leaf);
+    color: white;
+  }
+
+  textarea#ownIdea{ margin-top: 4px; }
+
+  /* ---------- Step 4: Penutup ---------- */
+  .final-wrap{ text-align:center; padding-top: 10px; }
+  .stamp{
+    width: 92px; height: 92px;
+    margin: 4px auto 18px;
+  }
+  .summary-card{
+    text-align:left;
+    margin-top: 22px;
+  }
+  .summary-row{
+    display:flex;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .summary-row:last-child{ border-bottom:none; }
+  .summary-icon{ font-size: 20px; line-height:1; }
+  .summary-label{
+    font-size: 11.5px;
+    font-weight:700;
+    color: var(--ink-soft);
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    margin-bottom:2px;
+  }
+  .summary-val{
+    font-weight: 600;
+    color: var(--ink);
+    font-size: 15px;
+  }
+
+  .loading-dot{
+    display:inline-block; width:8px; height:8px; border-radius:50%;
+    background: var(--leaf); margin: 0 2px;
+    animation: dotPulse 1.2s infinite ease-in-out;
+  }
+  .loading-dot:nth-child(2){ animation-delay:.15s; }
+  .loading-dot:nth-child(3){ animation-delay:.3s; }
+  @keyframes dotPulse{ 0%,80%,100%{ opacity:.25; transform: scale(.8);} 40%{ opacity:1; transform: scale(1);} }
+
+  .toast{
+    position: fixed;
+    bottom: 22px; left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--leaf-deep);
+    color: white;
+    padding: 13px 22px;
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 12px 24px -8px rgba(0,0,0,0.3);
+    opacity:0;
+    transition: opacity .3s, transform .3s;
+    z-index: 50;
+    max-width: 90%;
+    text-align:center;
+  }
+  .toast.show{ opacity:1; transform: translateX(-50%) translateY(0); }
+
+  .leaf-corner{
+    position:absolute;
+    pointer-events:none;
+    opacity:.5;
+  }
+
+  /* ---------- Kucing pixel maskot ---------- */
+  .cat-wrap{
+    display:flex;
+    justify-content:center;
+    margin: 6px 0 4px;
+    height: 76px;
+    position: relative;
+  }
+  .pixel-cat{
+    width: 64px;
+    height: 64px;
+    image-rendering: pixelated;
+    position: relative;
+    animation: catBob 2.6s ease-in-out infinite;
+  }
+  .pixel-cat svg{ width:100%; height:100%; display:block; shape-rendering: crispEdges; }
+
+  @keyframes catBob{
+    0%, 100%{ transform: translateY(0); }
+    50%{ transform: translateY(-3px); }
+  }
+
+  .pixel-cat .tail{
+    transform-origin: 70% 75%;
+    animation: tailWag 1.8s ease-in-out infinite;
+  }
+  @keyframes tailWag{
+    0%, 100%{ transform: rotate(0deg); }
+    50%{ transform: rotate(14deg); }
+  }
+
+  .pixel-cat .eye{
+    animation: catBlink 4.5s infinite;
+    transform-origin: center;
+  }
+  @keyframes catBlink{
+    0%, 92%, 100%{ transform: scaleY(1); }
+    95%{ transform: scaleY(0.1); }
+  }
+
+  .pixel-cat .ear-l, .pixel-cat .ear-r{
+    transform-origin: bottom center;
+    animation: earTwitch 3.2s ease-in-out infinite;
+  }
+  .pixel-cat .ear-r{ animation-delay: .4s; }
+  @keyframes earTwitch{
+    0%, 80%, 100%{ transform: rotate(0deg); }
+    85%{ transform: rotate(-8deg); }
+    90%{ transform: rotate(6deg); }
+  }
+
+  /* Step 2: kucing excited, lompat lebih tinggi */
+  .pixel-cat.excited{ animation: catHop 1.1s ease-in-out infinite; }
+  @keyframes catHop{
+    0%, 100%{ transform: translateY(0) scaleY(1); }
+    30%{ transform: translateY(2px) scaleY(0.92); }
+    55%{ transform: translateY(-9px) scaleY(1.05); }
+    80%{ transform: translateY(0) scaleY(1); }
+  }
+
+  /* Step 3: kucing jalan mengintip, gerak kepala nengok */
+  .pixel-cat.peeking .head-group{
+    animation: catPeek 3.4s ease-in-out infinite;
+    transform-origin: 50% 60%;
+  }
+  @keyframes catPeek{
+    0%, 100%{ transform: rotate(0deg) translateX(0); }
+    25%{ transform: rotate(-6deg) translateX(-2px); }
+    75%{ transform: rotate(6deg) translateX(2px); }
+  }
+
+  /* Step 4: kucing loncat senang + hati */
+  .pixel-cat.happy{ animation: catHop .85s ease-in-out infinite; }
+  .heart-pop{
+    position:absolute;
+    font-size: 14px;
+    opacity: 0;
+    pointer-events:none;
+    animation: heartFloat 1.8s ease-out infinite;
+  }
+  .heart-pop.h1{ left: 18%; top: 6px; animation-delay: 0s; }
+  .heart-pop.h2{ left: 50%; top: 0px; animation-delay: .5s; }
+  .heart-pop.h3{ left: 76%; top: 8px; animation-delay: 1s; }
+  @keyframes heartFloat{
+    0%{ opacity:0; transform: translateY(6px) scale(0.6); }
+    25%{ opacity:1; transform: translateY(-6px) scale(1); }
+    80%{ opacity:1; transform: translateY(-28px) scale(1); }
+    100%{ opacity:0; transform: translateY(-36px) scale(0.8); }
+  }
+
+  .cat-speech{
+    text-align:center;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--leaf);
+    margin-bottom: 4px;
+    min-height: 16px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app" id="app">
+
+  <!-- Progress flowers -->
+  <div class="progress-wrap" id="progressWrap">
+    <svg class="flower" id="flower1" viewBox="0 0 30 30"><g></g></svg>
+    <div class="progress-stem" id="stem1"></div>
+    <svg class="flower" id="flower2" viewBox="0 0 30 30"><g></g></svg>
+    <div class="progress-stem" id="stem2"></div>
+    <svg class="flower" id="flower3" viewBox="0 0 30 30"><g></g></svg>
+    <div class="progress-stem" id="stem3"></div>
+    <svg class="flower" id="flower4" viewBox="0 0 30 30"><g></g></svg>
+  </div>
+
+  <!-- STEP 1: Pendaftaran -->
+  <section class="step active" id="step1">
+    <div class="cat-wrap" id="catStep1"></div>
+    <div class="cat-speech">mio? isi nama dulu yuk~</div>
+    <span class="eyebrow">🌱 sebelum masuk</span>
+    <div class="headline">Halo, siapa nih yang<br><em>Lagi bosen?</em></div>
+    <div class="sub">Isi nama dulu ya, biar aku tahu harus manggil kamu apa XD.</div>
+
+    <div class="card">
+      <div class="field">
+        <label for="namaInput">Nama kamu</label>
+        <input type="text" id="namaInput" autocomplete="off">
+        <div class="hint">tenang, cuma kamu &amp; aku yang lihat ini 🤫</div>
+      </div>
+      <button class="btn btn-primary" id="btnStep1" disabled>Lanjut yuk →</button>
+    </div>
+  </section>
+
+  <!-- STEP 2: Sapaan + tanggal -->
+  <section class="step" id="step2">
+    <div class="cat-wrap" id="catStep2"></div>
+    <div class="cat-speech">yeay, lanjut pilih tanggal!</div>
+    <span class="eyebrow">📅 jadwal Jalan-Jalan</span>
+    <div class="headline">Hi, <span class="greet-name" id="greetName">Cantik</span> 🥰</div>
+    <div class="sub">Kira-kira kapan kita bisa jalan-jalan? Pilih yang paling pas, atau tulis sendiri.</div>
+
+    <div class="card">
+      <div class="field">
+        <label>Pilih salah satu</label>
+        <div class="date-chip-row" id="quickDates"></div>
+      </div>
+
+      <div class="or-divider">atau</div>
+
+      <div class="field">
+        <label for="customDate">Tanggal lain</label>
+        <input type="date" id="customDate">
+      </div>
+
+      <div class="field">
+        <label for="moodNote">Lagi pengen mood jalan-jalan yang gimana? (opsional)</label>
+        <textarea id="moodNote" placeholder="misal: santai aja, yang banyak fotonya, yang ada makanan enak..."></textarea>
+      </div>
+
+      <button class="btn btn-primary" id="btnStep2" disabled>Lanjut →</button>
+    </div>
+  </section>
+
+  <!-- STEP 3: Destinasi -->
+  <section class="step" id="step3">
+    <div class="cat-wrap" id="catStep3"></div>
+    <div class="cat-speech">hmm, kira-kira kemana ya...</div>
+    <span class="eyebrow">🗺️ misi hari ini</span>
+    <div class="headline">Kamu pengen<br>kemana, nih?</div>
+    <div class="sub">Pilih satu dari saranku, atau kalau sudah ada tempat di kepala kamu, tulis aja di bawah.</div>
+
+    <div class="card saran-zone" id="saranZone">
+      <svg class="q-icon" viewBox="0 0 64 64" fill="none">
+        <circle cx="32" cy="32" r="30" fill="#E9F1E2"/>
+        <path d="M24 26c0-5 4-9 9-9s9 4 9 9c0 4-2 6-5 8-2 1.3-3 2.6-3 4.5" stroke="#7FA66B" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+        <circle cx="33" cy="46" r="2.2" fill="#7FA66B"/>
+      </svg>
+      <div style="font-weight:700; color:var(--leaf-deep); margin-bottom:14px;">Masih bingung? Aku ada beberapa ide 🌿</div>
+      <button class="btn btn-honey" id="btnSaran">✨ Kasih saran dong</button>
+    </div>
+
+    <div class="place-list" id="placeList"></div>
+
+    <div class="card" style="margin-top:18px;">
+      <div class="field" style="margin-bottom:14px;">
+        <label for="ownIdea">Atau ide kamu sendiri</label>
+        <textarea id="ownIdea" placeholder="tulis tempat impian kamu di sini..."></textarea>
+      </div>
+      <button class="btn btn-primary" id="btnStep3" disabled>Kirim pilihanku →</button>
+    </div>
+  </section>
+
+  <!-- STEP 4: Penutup -->
+  <section class="step" id="step4">
+    <div class="final-wrap">
+      <div class="cat-wrap" id="catStep4">
+        <span class="heart-pop h1">💚</span>
+        <span class="heart-pop h2">💛</span>
+        <span class="heart-pop h3">💚</span>
+      </div>
+      <div class="cat-speech">mio, akhirnyaa!</div>
+      <svg class="stamp" viewBox="0 0 92 92" fill="none">
+        <circle cx="46" cy="46" r="44" fill="#FBE3AE"/>
+        <path d="M30 47l11 11 21-24" stroke="#5A3E0E" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <div class="headline" style="text-align:center;">Sip, sudah<br><em>tersimpan!</em></div>
+      <div class="sub" style="text-align:center;">Tinggal tunggu aku susun rencananya. Makasih sudah meluangkan waktu isi ini, Cantik 🌻</div>
+
+      <div class="card summary-card">
+        <div class="summary-row">
+          <div class="summary-icon">🌱</div>
+          <div>
+            <div class="summary-label">Nama</div>
+            <div class="summary-val" id="sumNama">-</div>
+          </div>
+        </div>
+        <div class="summary-row">
+          <div class="summary-icon">📅</div>
+          <div>
+            <div class="summary-label">Tanggal pilihan</div>
+            <div class="summary-val" id="sumTanggal">-</div>
+          </div>
+        </div>
+        <div class="summary-row">
+          <div class="summary-icon">📍</div>
+          <div>
+            <div class="summary-label">Mau kemana</div>
+            <div class="summary-val" id="sumLokasi">-</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="statusLine" style="margin-top:16px; font-size:13.5px; color:var(--ink-soft);">
+        Menyimpan ke buku kebun kita <span class="loading-dot"></span><span class="loading-dot"></span><span class="loading-dot"></span>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============== KONFIGURASI ==============
+  Ganti URL di bawah dengan Web App URL hasil deploy Google Apps Script kamu.
+  Lihat panduan lengkap di langkah-langkah yang diberikan terpisah.
+============================================ */
+const SHEET_API_URL = "https://script.google.com/macros/s/AKfycbzxKWMMRs2nafePA_hv5P77ya-AxCBo_6Tr5Q871R_PLiCJAywi_rteZCWOnGB5F8JSVA/exec";
+
+/* ============== DATA TEMPAT (ganti foto & link sesuai kebutuhan) ============== */
+const PLACES = [
+  {
+    name: "Dusun Bambu, Lembang",
+    desc: "Suasana sejuk, banyak spot foto kayu & danau kecil. Ada tempat bermainya.",
+    photo: "https://assets.telkomsel.com/public/2024-11/dusun%20bambu.png",
+    maps: "https://maps.app.goo.gl/zxiS89mZ3hk1fAAy9"
+  },
+  {
+    name: "Piknik Kopi",
+    desc: "Tempat buat santai. Punya nuansa vintage gedung belanda",
+    photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDLR3xV9y-WoKFrbe2m7VtBfDL6dkGMYZw4jXdTVtye-uLInTn55mWuVlL&s=10",
+    maps: "https://maps.app.goo.gl/aExJqMeK6uarXHJp8"
+  },
+  {
+    name: "Keliling Bandung yuk malam",
+    desc: "Belanja makanan di lengkong kecil, liat nuasna malam bandung, ngopi di cafe.",
+    photo: "https://komunitasaleut.com/wp-content/uploads/2015/04/dsc_0197.jpg",
+    maps: "https://maps.app.goo.gl/Bqg4eXRQvmFv7sny9"
+  }
+];
+
+/* ============== STATE ============== */
+const state = {
+  nama: "",
+  tanggal: "",
+  mood: "",
+  lokasi: "",
+  ownIdea: ""
+};
+
+let currentStep = 1;
+const TOTAL_STEPS = 4;
+
+/* ============== HELPERS ============== */
+function $(id){ return document.getElementById(id); }
+
+function showToast(msg, ms=2400){
+  const t = $('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(()=> t.classList.remove('show'), ms);
+}
+
+function flowerSVG(stage){
+  // stage: 0 = bud (kuncup), 1 = bloom (mekar)
+  if(stage === 0){
+    return `<circle cx="15" cy="15" r="6" fill="#DCE7D3"/>`;
+  }
+  return `
+    <g>
+      <circle cx="15" cy="9"  r="5" fill="#F0B94D"/>
+      <circle cx="21" cy="15" r="5" fill="#F0B94D"/>
+      <circle cx="15" cy="21" r="5" fill="#F0B94D"/>
+      <circle cx="9"  cy="15" r="5" fill="#F0B94D"/>
+      <circle cx="15" cy="15" r="4.2" fill="#7FA66B"/>
+    </g>`;
+}
+
+function renderProgress(){
+  for(let i=1;i<=4;i++){
+    const f = $('flower'+i);
+    const wasBloom = f.dataset.stage === '1';
+    const shouldBloom = i <= currentStep;
+    f.innerHTML = flowerSVG(shouldBloom ? 1 : 0);
+    f.dataset.stage = shouldBloom ? '1' : '0';
+    if(shouldBloom && !wasBloom){
+      f.classList.remove('bloom');
+      requestAnimationFrame(()=> f.classList.add('bloom'));
+    }
+  }
+  for(let i=1;i<=3;i++){
+    $('stem'+i).classList.toggle('filled', currentStep > i);
+  }
+}
+
+/* ---------- Kucing pixel art ---------- */
+function catSVG(variant){
+  // Palet: badan krem, motif oranye, garis outline hijau tua
+  const body = '#F4D9B0';
+  const patch = '#E3A45E';
+  const line  = '#4D6B43';
+  const pink  = '#E8889B';
+
+  return `
+    <svg viewBox="0 0 32 32" shape-rendering="crispEdges">
+      <g class="head-group">
+        <!-- telinga -->
+        <rect class="ear-l" x="6"  y="6" width="5" height="5" fill="${body}" stroke="${line}" stroke-width="1"/>
+        <rect class="ear-r" x="21" y="6" width="5" height="5" fill="${body}" stroke="${line}" stroke-width="1"/>
+        <rect x="8" y="8" width="2" height="2" fill="${pink}"/>
+        <rect x="22" y="8" width="2" height="2" fill="${pink}"/>
+
+        <!-- kepala -->
+        <rect x="7" y="9" width="18" height="13" rx="1" fill="${body}" stroke="${line}" stroke-width="1"/>
+
+        <!-- motif pipi -->
+        <rect x="7" y="14" width="4" height="4" fill="${patch}"/>
+        <rect x="21" y="14" width="4" height="4" fill="${patch}"/>
+
+        <!-- mata -->
+        <rect class="eye" x="12" y="14" width="2.6" height="3" fill="${line}"/>
+        <rect class="eye" x="18" y="14" width="2.6" height="3" fill="${line}"/>
+
+        <!-- hidung & mulut -->
+        <rect x="15" y="18" width="2" height="1.6" fill="${pink}"/>
+        <path d="M14 20 q2 2 4 0" stroke="${line}" stroke-width="1" fill="none" stroke-linecap="round"/>
+
+        <!-- kumis -->
+        <line x1="4"  y1="16" x2="9"  y2="16.5" stroke="${line}" stroke-width=".8"/>
+        <line x1="4"  y1="19" x2="9"  y2="18.5" stroke="${line}" stroke-width=".8"/>
+        <line x1="23" y1="16.5" x2="28" y2="16" stroke="${line}" stroke-width=".8"/>
+        <line x1="23" y1="18.5" x2="28" y2="19" stroke="${line}" stroke-width=".8"/>
+      </g>
+
+      <!-- badan kecil -->
+      <rect x="10" y="22" width="12" height="6" rx="1" fill="${body}" stroke="${line}" stroke-width="1"/>
+      <rect x="13" y="24" width="3" height="3" fill="${patch}"/>
+
+      <!-- ekor -->
+      <path class="tail" d="M22 26 q7 -2 5 -9" stroke="${patch}" stroke-width="3" fill="none" stroke-linecap="round"/>
+    </svg>
+  `;
+}
+
+function renderCats(){
+  $('catStep1').innerHTML = `<div class="pixel-cat">${catSVG()}</div>`;
+  $('catStep2').innerHTML = `<div class="pixel-cat excited">${catSVG()}</div>`;
+  $('catStep3').innerHTML = `<div class="pixel-cat peeking">${catSVG()}</div>`;
+  const heartsHTML = $('catStep4').innerHTML; // simpan heart-pop yang sudah ada di markup
+  $('catStep4').innerHTML = `<div class="pixel-cat happy">${catSVG()}</div>` + heartsHTML;
+}
+
+function goToStep(n){
+  $('step'+currentStep).classList.remove('active');
+  currentStep = n;
+  $('step'+currentStep).classList.add('active');
+  renderProgress();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* ============== STEP 1 ============== */
+const namaInput = $('namaInput');
+const btnStep1 = $('btnStep1');
+
+namaInput.addEventListener('input', () => {
+  btnStep1.disabled = namaInput.value.trim().length === 0;
+});
+
+btnStep1.addEventListener('click', () => {
+  state.nama = namaInput.value.trim();
+  $('greetName').textContent = state.nama;
+  buildQuickDates();
+  goToStep(2);
+});
+
+/* ============== STEP 2 ============== */
+function buildQuickDates(){
+  const wrap = $('quickDates');
+  wrap.innerHTML = '';
+  const today = new Date();
+  const dayNames = ['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
+  const monthNames = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+
+  // Ambil 3 hari Sabtu/Minggu terdekat sebagai opsi cepat
+  const options = [];
+  let d = new Date(today);
+  let guard = 0;
+  while(options.length < 3 && guard < 30){
+    d.setDate(d.getDate()+1);
+    guard++;
+    if(d.getDay() === 0 || d.getDay() === 6){
+      options.push(new Date(d));
+    }
+  }
+
+  options.forEach(dt => {
+    const iso = dt.toISOString().slice(0,10);
+    const chip = document.createElement('div');
+    chip.className = 'date-chip';
+    chip.dataset.value = iso;
+    chip.innerHTML = `<span class="d-num">${dt.getDate()}</span>${dayNames[dt.getDay()]}, ${monthNames[dt.getMonth()]}`;
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.date-chip').forEach(c=>c.classList.remove('selected'));
+      chip.classList.add('selected');
+      $('customDate').value = '';
+      state.tanggal = iso;
+      checkStep2();
+    });
+    wrap.appendChild(chip);
+  });
+}
+
+$('customDate').addEventListener('change', (e) => {
+  if(e.target.value){
+    document.querySelectorAll('.date-chip').forEach(c=>c.classList.remove('selected'));
+    state.tanggal = e.target.value;
+  }
+  checkStep2();
+});
+
+function checkStep2(){
+  $('btnStep2').disabled = !state.tanggal;
+}
+
+$('btnStep2').addEventListener('click', () => {
+  state.mood = $('moodNote').value.trim();
+  goToStep(3);
+});
+
+/* ============== STEP 3 ============== */
+let placesShown = false;
+
+$('btnSaran').addEventListener('click', () => {
+  if(placesShown) return;
+  placesShown = true;
+  renderPlaces();
+  $('saranZone').style.display = 'none';
+});
+
+function renderPlaces(){
+  const list = $('placeList');
+  list.innerHTML = '';
+  PLACES.forEach((p, idx) => {
+    const card = document.createElement('div');
+    card.className = 'place-card';
+    card.style.animationDelay = (idx*0.12)+'s';
+    card.innerHTML = `
+      <img class="place-photo" src="${p.photo}" alt="${p.name}" loading="lazy">
+      <div class="place-body">
+        <div class="place-name">${p.name}</div>
+        <div class="place-desc">${p.desc}</div>
+        <div class="place-foot">
+          <a class="maps-link" href="${p.maps}" target="_blank" rel="noopener" onclick="event.stopPropagation()">📍 Lihat di Maps</a>
+          <span class="pick-badge">Pilih ini</span>
+        </div>
+      </div>
+    `;
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.place-card').forEach(c=>{
+        c.classList.remove('picked');
+        c.querySelector('.pick-badge').textContent = 'Pilih ini';
+      });
+      card.classList.add('picked');
+      card.querySelector('.pick-badge').textContent = '✓ Dipilih';
+      state.lokasi = p.name;
+      $('ownIdea').value = '';
+      checkStep3();
+    });
+    list.appendChild(card);
+  });
+}
+
+$('ownIdea').addEventListener('input', (e) => {
+  if(e.target.value.trim().length > 0){
+    document.querySelectorAll('.place-card').forEach(c=>{
+      c.classList.remove('picked');
+      c.querySelector('.pick-badge').textContent = 'Pilih ini';
+    });
+    state.lokasi = e.target.value.trim();
+  } else if(!document.querySelector('.place-card.picked')){
+    state.lokasi = '';
+  }
+  checkStep3();
+});
+
+function checkStep3(){
+  $('btnStep3').disabled = !state.lokasi;
+}
+
+$('btnStep3').addEventListener('click', () => {
+  goToStep(4);
+  fillSummary();
+  submitToSheet();
+});
+
+/* ============== STEP 4: ringkasan + kirim ke Google Sheets ============== */
+function fillSummary(){
+  $('sumNama').textContent = state.nama || '-';
+  $('sumTanggal').textContent = formatTanggal(state.tanggal);
+  $('sumLokasi').textContent = state.lokasi || '-';
+}
+
+function formatTanggal(iso){
+  if(!iso) return '-';
+  const [y,m,d] = iso.split('-');
+  const monthNames = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+  return `${parseInt(d)} ${monthNames[parseInt(m)-1]} ${y}`;
+}
+
+async function submitToSheet(){
+  const statusLine = $('statusLine');
+  const payload = {
+    nama: state.nama,
+    tanggal: state.tanggal,
+    mood: state.mood,
+    lokasi: state.lokasi,
+    waktuKirim: new Date().toISOString()
+  };
+
+  if(!SHEET_API_URL || SHEET_API_URL.indexOf('GANTI_DENGAN') !== -1){
+    statusLine.innerHTML = '✅ SIPPPPP!!!.';
+    showToast('Mode demo: data belum dikirim ke Sheets');
+    return;
+  }
+
+  try{
+    await fetch(SHEET_API_URL, {
+      method: 'POST',
+      mode: 'no-cors', // Apps Script web app butuh no-cors dari browser
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    });
+    statusLine.innerHTML = '🌿 Tersimpan rapi di buku kebun kita.';
+    showToast('Berhasil dikirim! 🌸');
+  }catch(err){
+    statusLine.innerHTML = '⚠️ Gagal menyimpan, coba cek koneksi internet.';
+    showToast('Gagal mengirim data');
+  }
+}
+
+/* ============== INIT ============== */
+renderProgress();
+renderCats();
+</script>
+</body>
+</html>
